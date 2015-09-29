@@ -1,0 +1,5 @@
+config.json
+npm-debug.log
+lan_scan/*
+node_modules/*
+tasks/logs/*

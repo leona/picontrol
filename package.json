@@ -1,0 +1,11 @@
+{
+  "name": "picontrol",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "shelljs": "latest"
+  }
+}
