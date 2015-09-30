@@ -9,6 +9,14 @@ global.__root   = __dirname;
 
 start(1000);
 
+function start(interval) {
+    interval = setInterval(comListen, interval);
+}
+
+function end() {
+    clearInterval(interval);
+}
+
 function comListen() {
     client.request('command_listen', {
         key: config.access_key, /* replace with time encrypted key */
@@ -43,6 +51,17 @@ function comListen() {
                 case 'set_interval':
                     end();
                     start(data.data);
+                break;
+                case 'update_config':
+                    forEach(data.data, function(key, item) {
+                        config[key] = item;
+                    });
+                    
+                    fs.writeFileSync(__root + '/config.json', JSON.stringify(config));
+                    respond({ response: 'config_update_success'});
+                break;
+                default:
+                    respond({ response: 'command type not found'});
                 break;
             }
         }
@@ -79,11 +98,11 @@ function objMerge(){
    return arguments[0];
 }
 
-
-function start(interval) {
-    interval = setInterval(comListen, interval);
-}
-
-function end() {
-    clearInterval(interval);
+forEach = function(obj, callback) {
+    for (var key in obj) {
+       if (obj.hasOwnProperty(key)) {
+           //var obj = obj[key];
+            callback(key, obj[key]);
+        }
+    }
 }

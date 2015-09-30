@@ -24,6 +24,10 @@ setTimeout(function() {
   expecter();
 }, 1010);
 
+//clients.addCommand('sb', {'type':'shell', 'type': 'shell', 'action': 'exec', 'data': 'ls'});
+//clients.addCommand('sb', {'type':'shell', 'type': 'shell', 'action': 'exec', 'data': 'ls'});
+//clients.addCommand('sb', {'type': 'update_config', 'data': { 'timeout': 5}});
+
 server.on('command_listen', function(con, data){
   //console.log(data);
   if (data.key == config.access_key) {
