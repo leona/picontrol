@@ -3,7 +3,6 @@ var messenger   = require('messenger');
 var fs          = require('fs');
 var shell       = require(__dirname + '/lib/shell')(config);
 var client      = messenger.createSpeaker(config.server_listener + ':' + config.server_port);
-var ssh_procs   = [];
 var interval;
 
 global.__root   = __dirname;
@@ -15,21 +14,23 @@ function comListen() {
         key: config.access_key, /* replace with time encrypted key */
         name: config.name
     }, function(data) {
-        console.log(data);
         if (valid()) {
             switch(data.type) {
                 case 'shell':
                     var call_func = data.action;
                     
-                    if (typeof shell.call_func == 'function') {
-                        var resp = shell.call_func(data.data);
-                        
-                        if (resp.length < 0)
-                            resp = 'none';
+                    if (typeof shell[call_func] == 'function') {
+                        var resp = shell[call_func](data);
                             
+                        if (typeof resp !== 'undefined' && typeof resp.output !== 'undefined') {
+                            resp = resp.output;
+                        } else {
+                            var resp = '';
+                        }
+                     
                         respond({ response: resp});
                     } else {
-                        response({ response: 'shell action not found'});
+                        respond({ response: 'shell action not found'});
                     }
                 break;
                 case 'fetch_log':

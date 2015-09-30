@@ -25,10 +25,15 @@ setTimeout(function() {
 }, 1010);
 
 server.on('command_listen', function(con, data){
+  //console.log(data);
   if (data.key == config.access_key) {
     clients.poll(data.name, expecter);
     
-    reply({'type':'fetch_log', 'data': 'test.txt'});
+    var queue = clients.getCommand(data.name);
+
+    if (typeof queue !== null && typeof queue === 'object') {
+      reply(queue);
+    }
   }
   
   
@@ -44,9 +49,21 @@ server.on('command_listen', function(con, data){
 
 
 server.on('command_response', function(con, data) {
-  console.log(data);
+  console.log('');
+  console.log('');
+  console.log(data.response);
+  console.log('');
+  expecter();
 });
 
+process.stdin.resume();
+
+process.on('SIGINT', procCleanup);
+
+function procCleanup() {
+  console.log('\n');
+  process.exit();
+}
 
 function expecter() {
   expect(expectParser);
@@ -56,9 +73,15 @@ function expect(callback) {
 }
 
 function expectParser(command) {
-  
-  
-  //expect(expectParser);
+  switch(command) {
+    case 'ls':
+      console.log(clients.active());
+      expecter();
+    break;
+    default:
+      expecter();
+    break;
+  }
 }
 
 function objMerge(){
