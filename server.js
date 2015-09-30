@@ -8,7 +8,7 @@ var rl = readline.createInterface({
   output: process.stdout
 });
 
-server = messenger.createListener('127.0.0.1:' + config.server_port);
+server = messenger.createListener(config.server_port);
 
 console.log('\033[2J');
 console.log('- - Welcome to PiControl - -');

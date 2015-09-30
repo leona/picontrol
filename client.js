@@ -98,7 +98,7 @@ function objMerge(){
    return arguments[0];
 }
 
-forEach = function(obj, callback) {
+var forEach = function(obj, callback) {
     for (var key in obj) {
        if (obj.hasOwnProperty(key)) {
            //var obj = obj[key];

@@ -6,7 +6,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "shelljs": "latest"
+    "shelljs": "latest",
     "messenger": "latest"
   }
 }
