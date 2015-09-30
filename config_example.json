@@ -3,7 +3,7 @@
     "ssh_port": 19999,
     "ssh_key": "/home/pi/.ssh/id_rsa",
     "ssh_host": "limited-user@direct.middleman.com",
-    "server_port": "8080",
+    "server_port": "8910",
     "server_listener": "127.0.0.1",
     "access_key": "9uhitlgwrepgij0etojhlwirjhroij",
     "timeout": 1

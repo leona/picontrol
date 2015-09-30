@@ -7,5 +7,6 @@
   },
   "dependencies": {
     "shelljs": "latest"
+    "messenger": "latest"
   }
 }
